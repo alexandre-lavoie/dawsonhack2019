@@ -10,8 +10,8 @@ const int TRIGGER_PIN = 2;
 const int ECHO_PIN = 3;
 
 // Servo Pins
-const int LEFT_MOTOR_PIN;
-const int RIGHT_MOTOR_PIN;
+const int LEFT_MOTOR_PIN = 1;
+const int RIGHT_MOTOR_PIN = 4;
 
 // Servos
 Servo left_motor;
@@ -19,8 +19,8 @@ Servo right_motor;
 
 void setup() {
   // Ultrasonic Sensor
-  pinMode(triggerPin, OUTPUT);
-  pinMode(echoPin, INPUT);
+  pinMode(TRIGGER_PIN, OUTPUT);
+  pinMode(ECHO_PIN, INPUT);
 
   // Servos
   left_motor.attach(LEFT_MOTOR_PIN);
@@ -49,7 +49,7 @@ void drive(float left_motor_speed, float right_motor_speed){
 }
 
 void loop() {
-  drive(5,5);
+  // drive(5,5);
   Serial.write(get_distance());
   delay(1000);
 }
