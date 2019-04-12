@@ -22,6 +22,9 @@ void setup() {
   pinMode(TRIGGER_PIN, OUTPUT);
   pinMode(ECHO_PIN, INPUT);
 
+  // On-board LED
+  pinMode(LED_BUILTIN, OUTPUT);
+
   // Servos
   left_motor.attach(LEFT_MOTOR_PIN);
   right_motor.attach(RIGHT_MOTOR_PIN);
@@ -50,6 +53,18 @@ void drive(float left_motor_speed, float right_motor_speed){
 
 void loop() {
   // drive(5,5);
-  Serial.write(get_distance());
-  delay(1000);
+  //Serial.write(get_distance());
+
+  if(Serial.available()>0){
+     int byte_in = Serial.read();
+     Serial.write(byte_in);
+     
+     switch(byte_in){
+      case 'p':
+       Serial.write(100);
+       break;
+     }
+  }
+  
+  delay(100);
 }
