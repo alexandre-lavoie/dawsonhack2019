@@ -1,5 +1,5 @@
 # Dawson Hackathon 2019
-This is the repository for the robot of team int kiwi.
+Repository for team int kiwi.
 
 # Team
 
@@ -7,29 +7,33 @@ Alexandre Lavoie
 
 # Plan
 
-## Sprint 1 - Basic Hardware
+## Basic Hardware
 
 - [x] Install Arduino Nano
 - [x] Install Servo Motors and Shield
+- [x] Install IR Receiver
+- [x] Install Color Sensors
 
 
-## Sprint 2 - Hardware Testing
+## Hardware Testing
 
-Use of Serial for data reading. Voltmeter?
+- [ ] Calibrate Servos
+- [x] Receive Basic IR Signals
+- [ ] Calibrate Color Sensors
 
-* Electronics - Test if pins work correctly, voltage is as expected, and using the correct hardware.
-* Sensors - Test ultrasonic accuracy / delays.
-* Servos - Test rotation accuracy. Add calibration for uneven servos.
+## Basic Software
 
-## Sprint 3 - Basic Software
+- [x] Forward / Backward + Rotation of Servos
+- [x] Executing Commands from IR Receiver
+- [ ] Receiving Color Input from Color Sensors
 
-* Servos - Forward/backward movement, left/right turning.
-* Sensors - Gets accurate distance when moving forwards.
+## Algorithms
 
-## Sprint 4 - Algorithm
+- [ ] Line Follower
+- [ ] Line Avoider for Manual Control
 
-TBA
+## Design Cleanups
 
-## Sprint 5 - Hardware/Software Cleanup
-
-TBA
+- [ ] Car Design
+- [ ] Improve IR Range
+- [ ] Improve IR Controls (Line Avoider?)
