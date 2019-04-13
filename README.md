@@ -7,9 +7,11 @@ Alexandre Lavoie
 
 # Plan
 
-## Sprint 1 - Hardware Design
+## Sprint 1 - Basic Hardware
 
-TBA
+[ X ] Install Arduino Nano
+[ X ] Install Servo Motors and Shield
+
 
 ## Sprint 2 - Hardware Testing
 
