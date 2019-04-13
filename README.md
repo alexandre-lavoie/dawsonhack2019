@@ -9,8 +9,8 @@ Alexandre Lavoie
 
 ## Sprint 1 - Basic Hardware
 
-[x] Install Arduino Nano
-[x] Install Servo Motors and Shield
+- [x] Install Arduino Nano
+- [x] Install Servo Motors and Shield
 
 
 ## Sprint 2 - Hardware Testing
