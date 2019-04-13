@@ -4,29 +4,39 @@
 
 // Includes
 #include <Servo.h>
+#include <IRremote.h>
 
- // Ultrasonic Sensor Pins
-const int TRIGGER_PIN = 2;
-const int ECHO_PIN = 3;
+// Pins
+#define LEFT_MOTOR_PIN 9
+#define RIGHT_MOTOR_PIN 10
+#define IR_PIN 5
+#define COLOR_SENSOR_PIN 6
 
-// Servo Pins
-const int LEFT_MOTOR_PIN = 1;
-const int RIGHT_MOTOR_PIN = 4;
+// IR Controller
+#define BUTTONOK 0xFF38C7
+#define BUTTONLEFT 0xFF10EF
+#define BUTTONRIGHT 0xFF5AA5
+#define BUTTONUP 0xFF18E7
+#define BUTTONDOWN 0xFF4AB5
+IRrecv irrecv(IR_PIN);
+decode_results results;
 
 // Servo Calibration Constants
-const int LEFT_MOTOR_ZERO = 90;
-const int RIGHT_MOTOR_ZERO = 90;
-const int LEFT_MOTOR_SPEED = 20;
-const int RIGHT_MOTOR_SPEED = 20;
+#define LEFT_MOTOR_ZERO 90
+#define RIGHT_MOTOR_ZERO 90
+#define LEFT_MOTOR_SPEED 30
+#define RIGHT_MOTOR_SPEED -20
 
 // Servos
 Servo left_motor;
 Servo right_motor;
 
 void setup() {
-  // Ultrasonic Sensor
-  pinMode(TRIGGER_PIN, OUTPUT);
-  pinMode(ECHO_PIN, INPUT);
+  // Color Sensor
+  pinMode(COLOR_SENSOR_PIN, INPUT);
+
+  // Remote Sensor
+  irrecv.enableIRIn();
 
   // On-board LED
   pinMode(LED_BUILTIN, OUTPUT);
@@ -39,21 +49,50 @@ void setup() {
   Serial.begin(9600);
 }
 
+void loop() {
+  //read_serial();
+  scan_controller();
+  
+  //delay(100);
+}
+
+void scan_controller() {
+  if(irrecv.decode(&results)){
+    irrecv.resume();
+
+    Serial.println(results.value, HEX);
+    
+    switch(results.value){
+      case BUTTONRIGHT:
+        drive(LEFT_MOTOR_SPEED, 0);
+        delay(250);
+        drive(0,0);
+        break;
+      case BUTTONLEFT:
+        drive(0, RIGHT_MOTOR_SPEED);
+        delay(250);
+        drive(0,0);
+        break;  
+      case BUTTONOK:
+        drive(0, 0);
+        break;
+      case BUTTONUP:
+        drive(LEFT_MOTOR_SPEED, RIGHT_MOTOR_SPEED);
+        break;
+      case BUTTONDOWN:
+        drive(-LEFT_MOTOR_SPEED, -RIGHT_MOTOR_SPEED);
+        break;
+    }
+    
+  }  
+}
+
 /*
- * Gets distance in front of the ultrasonic sensor.
+ * Line following.
  */
 
-float get_distance(){
-  digitalWrite(TRIGGER_PIN, LOW);
-  delayMicroseconds(4);
-
-  digitalWrite(TRIGGER_PIN, HIGH);
-  delayMicroseconds(12);
-  digitalWrite(TRIGGER_PIN, LOW);
-
-  long time_taken =  pulseIn(ECHO_PIN, HIGH);
-
-  return (340.0 * (1.0 / 1000000.0) * (100.0) * (time_taken / 2.0));
+void line_follow(){
+    if(digitalRead(COLOR_SENSOR_PIN)){}
 }
 
 /*
@@ -75,9 +114,6 @@ void read_serial(){
      Serial.write(byte_in);
      
      switch(byte_in){
-      case 'p':
-       Serial.write(get_distance());
-       break;
       case 'b':
         digitalWrite(LED_BUILTIN, HIGH);
         delay(1000);
@@ -97,10 +133,4 @@ void read_serial(){
         break;
      }
   }
-}
-
-void loop() {
-  read_serial();
-  
-  delay(100);
 }

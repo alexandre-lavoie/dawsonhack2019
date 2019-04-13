@@ -2,12 +2,17 @@ import processing.serial.*;
 
 Serial serial;
 
+// Wall Points
 ArrayList<PVector> points = new ArrayList<PVector>();
+float last_distance = 0;
+
+// Robot
 PVector position = new PVector(0,0);
 float rotation = 0;
-float last_distance = 0;
-float WALL_HEIGHT = 100;
+
+// Constants
 float SPEED = 2.0;
+float ROBOT_ROTATION_STEP = PI/8;
 
 // Processing Code
 
@@ -15,6 +20,10 @@ void setup(){
   size(640, 640);
   smooth();
   //serial = new Serial(this, "COM6", 9600);
+}
+
+void update(){
+  //serial_read();
 }
 
 void draw(){
@@ -46,10 +55,6 @@ void draw(){
   for(PVector point : points){
     point(point.x, point.y);
   }
-}
-
-void update(){
-  //serial_read();
 }
 
 void keyPressed(){
@@ -87,10 +92,10 @@ void serial_read(){
         add_point(value);
         break;
       case 'a':
-        rotation+=PI/8;
+        rotation+=ROBOT_ROTATION_STEP;
         break;
       case 'd':
-        rotation-=PI/8;
+        rotation-=ROBOT_ROTATION_STEP;
         break;
     }
   }
