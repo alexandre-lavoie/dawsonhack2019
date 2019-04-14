@@ -56,10 +56,10 @@ This was the plan of action for the competition. Using the SCRUM workflow, this 
 ## Algorithms
 
 - [x] Line Follower
-- [x] Line Avoider for Manual Control
+- [ ] Line Avoider for Manual Control
 
 ## Design Cleanups
 
 - [x] Car Design
 - [x] Improve IR Range
-- [x] Improve IR Controls (Line Avoider?)
+- [x] Improve IR Controls
